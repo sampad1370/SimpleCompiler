@@ -1,5 +1,6 @@
 #include"SemanticAnalyzer.h"
-#include<Engine.h>
+#include <rapidxml.hpp>
+//#include<Engine.h>
 using namespace BaseEngine;
 namespace CompilerPackage
 {
@@ -73,7 +74,7 @@ namespace CompilerPackage
 		return &m_GlobalSection;
 	}
 
-	bool SemanticAnalyzer::ProcessNode(node<DataToken>*nd, Types& types, Functions& functions, Variables& variables, ScopeData &scope)
+	bool SemanticAnalyzer::ProcessNode(::BaseEngine::Core::Tree::node<DataToken>*nd, Types& types, Functions& functions, Variables& variables, ScopeData &scope)
 	{
 		if (nd->data == "<program>"||nd->data == "<Declerations>")
 		{
@@ -108,7 +109,7 @@ namespace CompilerPackage
 		return true;
 	}
 
-	bool SemanticAnalyzer::TypeDeclerations(node<DataToken>* ChildNode, Types& types, Functions* functions, Variables* variables, ScopeData& scope, bool typeAccess)
+	bool SemanticAnalyzer::TypeDeclerations(::BaseEngine::Core::Tree::node<DataToken>* ChildNode, Types& types, Functions* functions, Variables* variables, ScopeData& scope, bool typeAccess)
 {
 		TypeDecleration* TypeDecl=nullptr;
 		bool Res = true;
@@ -149,7 +150,7 @@ namespace CompilerPackage
 		return Res;
 	}
 	
-	bool SemanticAnalyzer::BodyType(node<DataToken>* ChildNode, TypeDecleration &TypeCreated, bool typeAccess)
+	bool SemanticAnalyzer::BodyType(::BaseEngine::Core::Tree::node<DataToken>* ChildNode, TypeDecleration &TypeCreated, bool typeAccess)
 {
 		bool Res = true,used=false;
 		MemberDeclertion* mb = new MemberDeclertion();
@@ -192,7 +193,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::FunctionDecleration(node<DataToken>*ChildNode, Functions& functions, Variables* variables, ScopeData* scope)
+	bool SemanticAnalyzer::FunctionDecleration(::BaseEngine::Core::Tree::node<DataToken>*ChildNode, Functions& functions, Variables* variables, ScopeData* scope)
 	{
 		Variables vb;
 		FunctionDeclertion* FunDecl = new FunctionDeclertion();
@@ -238,7 +239,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::Params(node<DataToken>*ChildNode, Parameters& StorePlace, ScopeData* scope, TypeDecleration* DefType)
+	bool SemanticAnalyzer::Params(::BaseEngine::Core::Tree::node<DataToken>*ChildNode, Parameters& StorePlace, ScopeData* scope, TypeDecleration* DefType)
 	{
 		VariableDeclertion* VarDef = new VariableDeclertion();
 		VarDef->typeDefinition = TypeDefinition::VarDecl;
@@ -264,7 +265,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::MethodBody(node<DataToken>*ChildNode, Parameters* params, Variables& variables, ScopeData* scope)
+	bool SemanticAnalyzer::MethodBody(::BaseEngine::Core::Tree::node<DataToken>*ChildNode, Parameters* params, Variables& variables, ScopeData* scope)
 	{
 		bool Res = true;
 		for (int i = ChildNode->m_child.size() - 1; i >= 0; i--)
@@ -283,7 +284,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::StatementSequence(node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope)
+	bool SemanticAnalyzer::StatementSequence(::BaseEngine::Core::Tree::node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope)
 	{
 		bool Res = true;
 		for (int i = ChildNode->m_child.size() - 1; i >= 0; i--)
@@ -313,7 +314,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::Assignment(node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope)
+	bool SemanticAnalyzer::Assignment(::BaseEngine::Core::Tree::node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope)
 	{
 		bool Res = true;
 		TypeDecleration* Ltype = nullptr;
@@ -334,7 +335,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::LValue(node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope, TypeDecleration* &TypeFound)
+	bool SemanticAnalyzer::LValue(::BaseEngine::Core::Tree::node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope, TypeDecleration* &TypeFound)
 	{
 		bool Res = true;
 		VariableDeclertion* variable = nullptr;
@@ -377,7 +378,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::RValue(node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope, TypeDecleration* Rtype, bool HasFunctionType/*=false*/)
+	bool SemanticAnalyzer::RValue(::BaseEngine::Core::Tree::node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope, TypeDecleration* Rtype, bool HasFunctionType/*=false*/)
 {
 		bool Res = true;
 		TypeDecleration* Ltype = nullptr;
@@ -398,7 +399,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::LoopLValue(node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope, TypeDecleration* TypeIn, TypeDecleration* &TypeOut)
+	bool SemanticAnalyzer::LoopLValue(::BaseEngine::Core::Tree::node<DataToken>* ChildNode, Parameters* params, Variables& variables, ScopeData* scope, TypeDecleration* TypeIn, TypeDecleration* &TypeOut)
 	{
 		bool Res = true;
 		for (int i = ChildNode->m_child.size() - 1; i >= 0; i--)
@@ -443,7 +444,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::VarDecleration(node<DataToken>*ChildNode, Variables& StorePlace, ScopeData* scope, TypeDecleration* DefType)
+	bool SemanticAnalyzer::VarDecleration(::BaseEngine::Core::Tree::node<DataToken>*ChildNode, Variables& StorePlace, ScopeData* scope, TypeDecleration* DefType)
 	{
 		VariableDeclertion* VarDef = new VariableDeclertion();
 		VarDef->typeDefinition = TypeDefinition::VarDecl;
@@ -474,7 +475,7 @@ namespace CompilerPackage
 					//VarDef->name = var->m_child[0]->m_child[0]->m_child[0]->data;
 					if (var->m_child[0]->m_child[0]->data == "Number")
 					{
-						VarDef->data = new IntValue(toInt(var->m_child[0]->m_child[0]->m_child[0]->data.name.data()));
+						VarDef->data = new IntValue(String::ToInt(var->m_child[0]->m_child[0]->m_child[0]->data.name.data()));
 					}
 					else if (var->m_child[0]->m_child[0]->data == "FNumber")
 					{
@@ -516,7 +517,7 @@ namespace CompilerPackage
 		return Res;
 	}
 
-	bool SemanticAnalyzer::ConstDecleration(node<DataToken>*ChildNode, Variables& StorePlace, ScopeData* scope)
+	bool SemanticAnalyzer::ConstDecleration(::BaseEngine::Core::Tree::node<DataToken>*ChildNode, Variables& StorePlace, ScopeData* scope)
 	{
 		VariableDeclertion* VarDef = new VariableDeclertion();
 		VarDef->typeDefinition = TypeDefinition::ConstDecl;
@@ -540,7 +541,7 @@ namespace CompilerPackage
 					//VarDef->name = var->m_child[0]->m_child[0]->m_child[0]->data;
 					if (var->m_child[0]->data == "Number")
 					{
-						VarDef->data = new IntValue(toInt(var->m_child[0]->m_child[0]->data.name.data()));
+						VarDef->data = new IntValue(String::ToInt(var->m_child[0]->m_child[0]->data.name.data()));
 					}
 					else if (var->m_child[0]->data == "FNumber")
 					{
@@ -572,7 +573,7 @@ namespace CompilerPackage
 		return true;
 	}
 
-	bool SemanticAnalyzer::Type(node<DataToken>*ChildNode, ScopeData* scope, TypeDecleration* &TypeFound)
+	bool SemanticAnalyzer::Type(::BaseEngine::Core::Tree::node<DataToken>*ChildNode, ScopeData* scope, TypeDecleration* &TypeFound)
 	{
 		auto TypeName = ChildNode->m_child[0]->data;
 		auto field = scope->TypeScope.find(TypeName);

@@ -1,6 +1,13 @@
 #include"SyntaxAnalyzer.h"
-#include<Engine.h>
+#include <rapidxml.hpp>
+#include <rapidxml_utils.hpp>
+//#include<Engine.h>
+using namespace std;
 using namespace BaseEngine;
+using namespace ::BaseEngine::Core::Tree;
+using namespace ::BaseEngine::Core::Array;
+using namespace rapidxml;
+
 namespace CompilerPackage
 {
 	SyntaxAnalyser::SyntaxAnalyser(Compiler* ref, char* ConfigFile)
@@ -18,7 +25,7 @@ namespace CompilerPackage
 	}
 	void SyntaxAnalyser::LoadParseTable(char* ConfigFile)
 	{
-		Map<int, string> m_ReverseColumnMap;//Reverse
+		map<int, std::string> m_ReverseColumnMap;//Reverse
 		xml_document<> doc;    // character type defaults to char
 		rapidxml::file<> xmlFile(ConfigFile); // Default template is char
 		doc.parse<0>(xmlFile.data());
@@ -31,14 +38,14 @@ namespace CompilerPackage
 
 #pragma region Get Symbols of File
 
-		long SymbolCount = toInt(GetValueNode(curNode, "Count"));//<m_Symbol Count="">
+		long SymbolCount = String::ToInt(GetValueNode(curNode, "Count"));//<m_Symbol Count="">
 		rapidxml::xml_node<>*child = curNode->first_node();
 		long index;
 		string temp;
 		//<Symbol Index="" Name="" Type=""/>
 		for (int i = 0; i < SymbolCount; i++)
 		{
-			index = toInt(GetValueNode(child, "Index"));
+			index = String::ToInt(GetValueNode(child, "Index"));
 			string kk = GetValueNode(child, "Type");
 			if ( kk== "0")
 			{
@@ -66,7 +73,7 @@ namespace CompilerPackage
 
 #pragma region Get Prodouctions of file
 
-		long ProductionCount = toInt(GetValueNode(child, "Count"));
+		long ProductionCount = String::ToInt(GetValueNode(child, "Count"));
 		//m_Production = new pair<string, string>[ProductionCount];
 		GoDown(child);
 		long ProductionSymbol;
@@ -75,13 +82,13 @@ namespace CompilerPackage
 		for (int i = 0; i < ProductionCount; i++)
 		{
 			//m_Production[i]=
-			temp = m_ReverseColumnMap[toInt(GetValueNode(child, "NonTerminalIndex"))];
-			ProductionSymbol = toInt(GetValueNode(child, "SymbolCount"));
+			temp = m_ReverseColumnMap[String::ToInt(GetValueNode(child, "NonTerminalIndex"))];
+			ProductionSymbol = String::ToInt(GetValueNode(child, "SymbolCount"));
 			GoDown(child2);
 			end = "";
 			for (int j = 0; j < ProductionSymbol; j++)
 			{
-				end += m_ReverseColumnMap[toInt(GetValueNode(child2, "SymbolIndex"))];
+				end += m_ReverseColumnMap[String::ToInt(GetValueNode(child2, "SymbolIndex"))];
 				NextSelf(child2);
 			}
 			m_Production.push_back(new pair<string, pair<int, string>>(temp, pair<int, string>(ProductionSymbol, end)));
@@ -94,19 +101,19 @@ namespace CompilerPackage
 		if (curNode == nullptr)
 			return;
 #pragma region LALR Table that read from file.
-		long RowCount = toInt(GetValueNode(curNode, "Count"));//
+		long RowCount = String::ToInt(GetValueNode(curNode, "Count"));//
 		m_ParseTable = new string*[RowCount];
 		child = curNode->first_node();
 
 		for (int i = 0; i < RowCount; i++)
 		{
 			m_ParseTable[i] = new string[SymbolCount];
-			long CountAction = toInt(GetValueNode(child, "ActionCount"));//
-			long index = toInt(GetValueNode(child, "Index"));//
+			long CountAction = String::ToInt(GetValueNode(child, "ActionCount"));//
+			long index = String::ToInt(GetValueNode(child, "Index"));//
 			child2 = child->first_node();
 			for (int j = 0; j < CountAction; j++)
 			{
-				long code = toInt(GetValueNode(child2, "Action"));
+				long code = String::ToInt(GetValueNode(child2, "Action"));
 				string str = "";
 				if (code == 1)
 					str = "s";//shift
@@ -117,7 +124,7 @@ namespace CompilerPackage
 				else if (code == 4)
 					str = "a";//accept
 				str += GetValueNode(child2, "Value");
-				m_ParseTable[index][toInt(GetValueNode(child2, "SymbolIndex"))] = str;
+				m_ParseTable[index][String::ToInt(GetValueNode(child2, "SymbolIndex"))] = str;
 				NextSelf(child2);
 			}
 			NextSelf(child);
@@ -239,7 +246,7 @@ namespace CompilerPackage
 
 						}
 						symbol.push(nd);
-						StackState.push(RowNumber = toInt(instruction.data() + 1));
+						StackState.push(RowNumber = String::ToInt(instruction.data() + 1));
 						Exit = true;
 					}
 					break;
@@ -248,7 +255,7 @@ namespace CompilerPackage
 				#pragma region Reduce State
 					case 'r':
 					{
-						auto LeftPro = m_Production[toInt(instruction.data() + 1)];
+						auto LeftPro = m_Production[String::ToInt(instruction.data() + 1)];
 						auto m_node = new node<DataToken>(LeftPro->first);
 						for (int i = LeftPro->second.first - 1; i >= 0; i--)
 						{
@@ -260,13 +267,13 @@ namespace CompilerPackage
 						RowNumber = StackState.top();
 						column = m_ColumnMap[LeftPro->first];
 						instruction = m_ParseTable[RowNumber][column];
-						StackState.push(RowNumber = toInt(instruction.data() + 1));
+						StackState.push(RowNumber = String::ToInt(instruction.data() + 1));
 						break;
 					}
 				#pragma endregion
 
 					case 'g':
-					StackState.push(RowNumber = toInt(instruction.data() + 1));
+					StackState.push(RowNumber = String::ToInt(instruction.data() + 1));
 					Exit = true;
 					break;
 					case 'e':

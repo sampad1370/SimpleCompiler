@@ -1,4 +1,5 @@
 #include"TextView.h"
+using namespace std;
 
 namespace ComponentUI
 {
@@ -225,7 +226,7 @@ namespace ComponentUI
 		//Create a TextView Control!
 		HWND CreateTextView(HWND hwndParent)
 		{
-			return CreateWindowEx(WS_EX_CLIENTEDGE, TextViewClass, DAT(""),
+			return CreateWindowEx(WS_EX_CLIENTEDGE, TextViewClass, GL"",
 				WS_VSCROLL | WS_HSCROLL | WS_CHILD | WS_VISIBLE,
 				0, 0, 0, 0, hwndParent, 0, GetModuleHandle(0), 0);
 		}

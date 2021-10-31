@@ -1,7 +1,7 @@
 #pragma once
-#include<Engine.h>
+
 #include"..\General\ErrorManager.h"
-using namespace BaseEngine;
+
 namespace CompilerPackage
 {
 
@@ -32,14 +32,14 @@ namespace CompilerPackage
 
 	struct DataToken
 	{
-		string name;
+		std::string name;
 		Token* token;
-		DataToken(Token* token, string Name = "")
+		DataToken(Token* token, std::string Name = "")
 		{
 			name = Name;
 			this->token = token;
 		}
-		DataToken(string Name = "")
+		DataToken(std::string Name = "")
 		{
 			name = Name;
 		}
@@ -47,11 +47,11 @@ namespace CompilerPackage
 		{
 			name = Name;
 		}
-		inline operator string()
+		inline operator std::string()
 		{
 			return name;
 		}
-		inline bool operator==(string Name)
+		inline bool operator==(std::string Name)
 		{
 			return name == Name;
 		}
@@ -200,8 +200,8 @@ namespace CompilerPackage
 
 	struct StringValue :Value
 	{
-		string data="";
-		StringValue(string str) :Value(TypeValue::String), data(str){};
+		std::string data="";
+		StringValue(std::string str) :Value(TypeValue::String), data(str){};
 	};
 
 	struct BoolValue :Value
@@ -217,7 +217,7 @@ namespace CompilerPackage
 
 	struct Definition
 	{
-		string name;
+		std::string name;
 		TypeDefinition typeDefinition;
 		uint LineDefinition;
 	};
@@ -233,15 +233,15 @@ namespace CompilerPackage
 
 	struct ScopeData :public Definition
 	{
-		map<string, TypeDecleration*> TypeScope;//type is define in this scope;
-		map<string, TypeDecleration*> tempScope;//temp place for store types,variables,functions,... that must check for adding to upper scopes!
+		std::map<std::string, TypeDecleration*> TypeScope;//type is define in this scope;
+		std::map<std::string, TypeDecleration*> tempScope;//temp place for store types,variables,functions,... that must check for adding to upper scopes!
 	};
 
 	struct FunctionDeclertion :public ScopeData
 	{
 		TypeDecleration* TypeOfReturn;//type of value that this function return!
-		DArrayPointer<VariableDeclertion> param;//parameter of this function
-		map<string, VariableDeclertion*> Variables;//variables is define in this function!
+		::BaseEngine::Core::Array::DArrayPointer<VariableDeclertion> param;//parameter of this function
+		std::map<std::string, VariableDeclertion*> Variables;//variables is define in this function!
 	};
 
 	enum class AccessTypeMember
@@ -252,16 +252,16 @@ namespace CompilerPackage
 	struct MemberDeclertion :public Definition
 	{
 		AccessTypeMember AccessType;
-		map<string, VariableDeclertion*> Variables;//variables is define in this Class or struct!
-		map<string, FunctionDeclertion*> Functions;//Functions is define in this Class or struct!
-		map<string, TypeDecleration*> TypeMember;//Classes or struct is define in this Class or struct!
+		std::map<std::string, VariableDeclertion*> Variables;//variables is define in this Class or struct!
+		std::map<std::string, FunctionDeclertion*> Functions;//Functions is define in this Class or struct!
+		std::map<std::string, TypeDecleration*> TypeMember;//Classes or struct is define in this Class or struct!
 	};
 
 	struct TypeDecleration :public ScopeData
 	{
-		DArrayPointer<MemberDeclertion> Members;//Members is define in this Class or struct!
+		::BaseEngine::Core::Array::DArrayPointer<MemberDeclertion> Members;//Members is define in this Class or struct!
 		Token* token=nullptr;
-		TypeDecleration(string Name)
+		TypeDecleration(std::string Name)
 		{
 			name = Name;
 			typeDefinition = TypeDefinition::TypeDecl;
@@ -270,17 +270,17 @@ namespace CompilerPackage
 
 	struct GlobalSection :public ScopeData
 	{
-		map<string, VariableDeclertion*> Variables;//variables is define in Global Section
-		map<string, FunctionDeclertion*> Functions;//Functions is define in Global Section
-		map<string, TypeDecleration*>	  Types;//Classes or struct is define in Global Section
+		std::map<std::string, VariableDeclertion*> Variables;//variables is define in Global Section
+		std::map<std::string, FunctionDeclertion*> Functions;//Functions is define in Global Section
+		std::map<std::string, TypeDecleration*>	  Types;//Classes or struct is define in Global Section
 	};
 
 	struct SymbolsTable
 	{
-		string id;
+		std::string id;
 		Token* Data = nullptr;//!? a Pointer to Token that is store in a token stream!
 		//...
-		SymbolsTable(string ID, Token* data)
+		SymbolsTable(std::string ID, Token* data)
 		{
 			id = ID;
 			Data = data;

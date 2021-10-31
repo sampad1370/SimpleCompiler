@@ -1,4 +1,5 @@
 #include "ErrorManager.h"
+using namespace std;
 
 namespace CompilerPackage
 {

@@ -1,8 +1,9 @@
 #pragma once
-#include<Engine.h>
+#include "Config.h"
 #include<thread>
 #include"..\Lexical\Token.h"
-using namespace BaseEngine;
+
+using namespace BaseEngine::Core::BaseType;
 
 namespace CompilerPackage
 {
@@ -44,12 +45,12 @@ namespace CompilerPackage
 		};
 		class ErrorManager
 		{
-			Core::Array::DArrayPointer<BaseError> m_Queue;
+			::BaseEngine::Core::Array::DArrayPointer<BaseError> m_Queue;
 		public:
 			ErrorManager();
 			~ErrorManager();
 			void Add(BaseError*);
-			void ReportToFile(string filename);
+			void ReportToFile(std::string filename);
 			bool HasError();
 			BaseError* GetFirstError();
 		};

@@ -1,9 +1,10 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS 1
-#pragma comment(lib,"GameEngine.lib")
-#include<Engine.h>
+//#pragma comment(lib,"GameEngine.lib")
+//#include<Engine.h>
 #include"TextDocument.h"
-using namespace BaseEngine;
+#include <WinDef.h>
+//using namespace BaseEngine;
 
 
 

@@ -83,6 +83,9 @@
     <ClInclude Include="CompilerSource\Parser\SyntaxAnalyzer.h">
       <Filter>Compiler\Parser</Filter>
     </ClInclude>
+    <ClInclude Include="resource\DialogResource\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\bitmap3.bmp">
@@ -114,9 +117,13 @@
     <None Include="resource\IDE.APS">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="resource\DialogResource\GameEngine.aps" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\IDE.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="resource\DialogResource\GameEngine.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

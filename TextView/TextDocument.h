@@ -1,9 +1,11 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS 1
-#pragma comment(lib,"GameEngine.lib")
-#include<Engine.h>
+//#pragma comment(lib,"GameEngine.lib")
+//#include<Engine.h>
 #include"TextView.h"
-using namespace BaseEngine;
+#include <General/Config.h>
+
+//using namespace BaseEngine;
 
 namespace ComponentUI
 {
@@ -18,12 +20,12 @@ namespace ComponentUI
 
 			uint32 *linebuffer;
 			uint32  numlines;
-			string str;
+			std::string str;
 			friend class TextView;
 		public:
 			uint32 length;
 			DChar *buffer;
-			string FileName;
+			std::string FileName;
 			TextDocument();
 			~TextDocument();
 
@@ -44,7 +46,7 @@ namespace ComponentUI
 			uint32 longestline(int tabwidth);
 			uint32 size();
 
-			string GetString()
+			std::string GetString()
 			{
 				return str;
 			}

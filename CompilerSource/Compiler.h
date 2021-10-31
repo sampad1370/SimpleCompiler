@@ -1,13 +1,13 @@
 #pragma once
-#pragma comment(lib,"GameEngine.lib")
+//#pragma comment(lib,"GameEngine.lib")
 
-#include<Engine.h>
+#include "General\Config.h"
 #include"Lexical\Token.h"
 #include"Lexical\LexicalAnalyzer.h"
 #include"Parser\SyntaxAnalyzer.h"
 #include"Semantic\SemanticAnalyzer.h"
 
-using namespace BaseEngine;
+using namespace std;
 
 namespace CompilerPackage
 {
@@ -15,8 +15,8 @@ namespace CompilerPackage
 	class LexicalAnalyzer;
 	class SyntaxAnalyser;
 	class SemanticAnalyzer;
-	extern string NameToken [];
-	extern string NameOfToken[];
+	extern std::string NameToken [];
+	extern std::string NameOfToken[];
 	
 	enum class CompilerState
 	{
@@ -28,18 +28,18 @@ namespace CompilerPackage
 	{
 		
 		FILE* m_file = nullptr;
-		fstream fs;
-		string strp;
+		std::fstream fs;
+		std::string strp;
 		char *Buffer;
 		uint Length = 0;
 		LexicalAnalyzer *m_lexc = nullptr;
 		SyntaxAnalyser *m_SyntaxAnlyser = nullptr;
 		SemanticAnalyzer* m_SemanticAnalayzer = nullptr;
-		HashTable<string, SymbolsTable> m_TokenTable;
-		DArrayPointer<Token>* m_ArrayToken;
-		tree<DataToken>* m_ParseTree;
+		::BaseEngine::Core::Array::HashTable<string, SymbolsTable> m_TokenTable;
+		::BaseEngine::Core::Array::DArrayPointer<Token>* m_ArrayToken;
+		::BaseEngine::Core::Tree::tree<DataToken>* m_ParseTree;
 		TokenType m_LastTypeDef;//Top index of Last instruction of Type definition
-		string FileName;
+		std::string FileName;
 		friend class LexicalAnalyzer;
 		friend class SyntaxAnalyser;
 		friend class SemanticAnalyzer;
@@ -48,7 +48,7 @@ namespace CompilerPackage
 		void Show();
 	public:
 		int x, y, length,offset;//for location of error!
-		string Error;
+		std::string Error;
 		WString EndMessage;
 		Compiler();
 		~Compiler();
@@ -56,6 +56,6 @@ namespace CompilerPackage
 		
 		bool Compile(char* file);
 		bool Compile(char* buffer, char* file);
-		tree<DataToken>* GetParseTree(){ return m_ParseTree; }
+		::BaseEngine::Core::Tree::tree<DataToken>* GetParseTree(){ return m_ParseTree; }
 	};
 }

@@ -1,8 +1,13 @@
 #pragma comment(linker, "/STACK:2000000")
 
+#pragma comment(linker,"\"/manifestdependency:type='win32' \
+name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
+processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
 #include"TextView\TextView.h"
 #include "resource\resource.h"
 #include"CompilerSource\Compiler.h"
+#include <commctrl.h>
 
 using namespace CompilerPackage;
 using namespace ComponentUI;
@@ -28,7 +33,7 @@ TextView *ptv;
 
 bool ShowOpenFileDlg(HWND hwnd, DChar* pstrFileName, DChar* pstrTitleName)
 {
-	DChar *szFilter = DAT("CMan Source Files (*.cman)\0*.cman\0C++ Source Files (*.h;*.hpp;*.hxx;*.cpp;*.cxx;*.cc)\0*.h;*.hpp;*.hxx;*.cpp;*.cxx;*.cc\0Text Files (*.txt)\0*.txt\0All Files (*.*)\0*.*\0\0");
+	DChar* szFilter = GL"CMan Source Files (*.cman)\0*.cman\0C++ Source Files (*.h;*.hpp;*.hxx;*.cpp;*.cxx;*.cc)\0*.h;*.hpp;*.hxx;*.cpp;*.cxx;*.cc\0Text Files (*.txt)\0*.txt\0All Files (*.*)\0*.*\0\0";
 
 	OPENFILENAME ofn = { sizeof(ofn) };
 
@@ -54,7 +59,7 @@ bool ShowOpenFileDlg(HWND hwnd, DChar* pstrFileName, DChar* pstrTitleName)
 void ShowAboutDlg(HWND hwndParent)
 {
 	MessageBox(hwndParent,
-		AppTitle DAT("\r\n\r\n"),
+		AppTitle GL"\r\n\r\n",
 		AppTitle,
 		MB_OK | MB_ICONINFORMATION
 		);
@@ -64,7 +69,7 @@ void SetWindowFileName(HWND hwnd, DChar *szFileName)
 {
 	DChar ach[MAX_PATH + sizeof(AppName) +4];
 
-	wsprintf(ach, DAT("%s - %s"), szFileName, AppName);
+	wsprintf(ach, GL"%s - %s", szFileName, AppName);
 	SetWindowText(hwnd, ach);
 }
 
@@ -77,7 +82,7 @@ bool DoOpenFile(HWND hwnd, DChar *szFileName, DChar *szFileTitle)
 	}
 	else
 	{
-		MessageBox(hwnd, _T("Error opening file"), AppTitle, MB_ICONEXCLAMATION);
+		MessageBox(hwnd, GL"Error opening file", AppTitle, MB_ICONEXCLAMATION);
 		return false;
 	}
 }
@@ -288,7 +293,7 @@ HTREEITEM AddItemToTree(DChar* lpszItem, HTREEITEM Parent, DChar* InfoTip = "", 
 	return hPrev;
 }
 
-void UpdateTreeView(node<DataToken>* node, HTREEITEM Parent)
+void UpdateTreeView(::BaseEngine::Core::Tree::node<DataToken>* node, HTREEITEM Parent)
 {
 	
 	for (int i = node->m_child.size()-1; i >=0; i--)
@@ -367,7 +372,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, uint msg, WPARAM wParam, LPARAM lParam)
 			switch (LOWORD(wParam))
 			{
 				case ID_FILE_NEW:
-					SetWindowFileName(hwnd, DAT("Untitled"));
+					SetWindowFileName(hwnd, GL"Untitled");
 					TextView_Clear(hwndTextView);
 					return 0;
 

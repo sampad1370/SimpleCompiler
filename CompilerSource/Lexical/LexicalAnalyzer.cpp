@@ -1,5 +1,6 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include"LexicalAnalyzer.h"
-#include<Engine.h>
+//#include<Engine.h>
 using namespace BaseEngine;
 namespace CompilerPackage
 {

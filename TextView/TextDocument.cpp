@@ -1,4 +1,5 @@
 #include"TextView.h"
+using namespace std;
 
 namespace ComponentUI
 {

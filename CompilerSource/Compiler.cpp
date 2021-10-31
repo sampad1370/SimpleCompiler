@@ -3,14 +3,14 @@ namespace CompilerPackage
 {
 
 	#pragma region NameToken
-		string NameToken [] =
+		std::string NameToken [] =
 		{
 			"","_class" , "_struct", "_boolean", "_break", "_char", "_cin", "_cout", "_else", "_false", "_float", "_double", "_for", "_if", "_elseif" , "_int", "_main", "_null",
 			"_private", "_public", "_return", "_true", "_void", "_while","_const", "and", "assign", "cbrac", "charliteral", "comma", "div", "dot", "eof", "eq",
 			"ge", "gt", "id", "lbracket", "le", "lpran", "lsh", "lt", "minus", "mod", "mul", "neq", "not", "num_float", "num_int", "obrac", "or", "plus", "pow", "plusplus", "minesmines",
 			"rbracket", "rpran", "rsh","coloncolon", "semi", "strliteral", "_typeid", "Unknown"
 		};
-		string NameOfToken[] =
+		std::string NameOfToken[] =
 		{
 			"","class" , "struct", "boolean", "break", "char", "cin", "cout", "else", "false", "float", "double", "for", "if", "elseif", "int", "main", "null",
 			"private", "public", "return", "true", "void", "while","const", "&&", "=", "}", ""/*literal character*/, ",", "/", ".", "" /*EndOfFile*/, "==",
@@ -45,7 +45,7 @@ namespace CompilerPackage
 		Reserve(TokenType::_void, "void");
 		Reserve(TokenType::_while, "while");
 		Reserve(TokenType::_const, "const");
-		m_ArrayToken = new DArrayPointer<Token>;
+		m_ArrayToken = new ::BaseEngine::Core::Array::DArrayPointer<Token>;
 		m_LastTypeDef = TokenType::none;
 
 	}
