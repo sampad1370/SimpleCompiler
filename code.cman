@@ -1,0 +1,59 @@
+/*------- primitive declration --------*/
+const int var1='a';
+bool b=true;
+char ch=12,cc2=20,cfd=256;
+const int x=12.34;
+sTruct student
+{
+public:
+		int id;
+		double grade;
+	private:
+		int c=0;
+};
+class Test1
+{
+public:
+	int write()
+	{
+		return 0;
+	}
+};
+void main()
+{
+	if (k > 0)
+	int x, i;
+	char ali='a';
+	bool abbas = true;
+	Student student1;
+	student1.id = 123;
+	student1.grd = 52;
+	cout << "Please enter y" << i;
+	cin >> y;
+	i = sum(x, y);
+	int k = 0;
+	while (i<10)
+	{
+		student1.grd = -student2.grade + student4.grade;
+		if (student1.grd>100)
+			break;
+		elseif(student1.grd > 75)
+			student1.grd = student1.grd*0.75;
+		elseif(student1.grd > 50)
+			student1.grd = student1.grd / (student2.grade % 2);
+		else
+			i++;
+		break;
+	}//end of while
+}
+const int k = 0;
+void sum(int x,int y)
+{
+	return x+y;
+}
+
+int test()
+{
+	int k = 0;
+}
+

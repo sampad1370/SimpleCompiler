@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Compiler">
+      <UniqueIdentifier>{61775b83-edc1-4e2f-8a91-5e6df72beefa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compiler\Lexical">
+      <UniqueIdentifier>{b836a571-497f-48f1-96e1-a0788ae27995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compiler\Parser">
+      <UniqueIdentifier>{84df81f7-31ef-4676-b9be-29362c1fd14b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compiler\Semantic">
+      <UniqueIdentifier>{abecd979-6229-45ed-b8e9-412d32211c7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compiler\Other">
+      <UniqueIdentifier>{7a8e485b-8be8-482f-8143-f401675e83df}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="IDE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CompilerSource\Compiler.cpp">
+      <Filter>Compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="CompilerSource\General\ErrorManager.cpp">
+      <Filter>Compiler\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="CompilerSource\General\File.cpp">
+      <Filter>Compiler\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="CompilerSource\Lexical\LexicalAnalyzer.cpp">
+      <Filter>Compiler\Lexical</Filter>
+    </ClCompile>
+    <ClCompile Include="CompilerSource\Semantic\SemanticAnalyzer.cpp">
+      <Filter>Compiler\Semantic</Filter>
+    </ClCompile>
+    <ClCompile Include="CompilerSource\Parser\SyntaxAnalyzer.cpp">
+      <Filter>Compiler\Parser</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CompilerSource\Compiler.h">
+      <Filter>Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CompilerSource\General\ErrorManager.h">
+      <Filter>Compiler\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="CompilerSource\General\File.h">
+      <Filter>Compiler\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="CompilerSource\Lexical\LexicalAnalyzer.h">
+      <Filter>Compiler\Lexical</Filter>
+    </ClInclude>
+    <ClInclude Include="CompilerSource\Lexical\Token.h">
+      <Filter>Compiler\Lexical</Filter>
+    </ClInclude>
+    <ClInclude Include="CompilerSource\Semantic\SemanticAnalyzer.h">
+      <Filter>Compiler\Semantic</Filter>
+    </ClInclude>
+    <ClInclude Include="CompilerSource\GUI\Window-Control.h">
+      <Filter>Compiler\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="CompilerSource\Parser\SyntaxAnalyzer.h">
+      <Filter>Compiler\Parser</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\bitmap3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\cauldron.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\LIST.BMP">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Compiler-icon\1389031692_93850.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Compiler-icon\1389033221_36059.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Compiler-icon\1389032545_36262.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Compiler-icon\toolbar1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\IDE.APS">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource\IDE.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

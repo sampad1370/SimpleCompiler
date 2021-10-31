@@ -1,0 +1,142 @@
+! Welcome to GOLD Parser Builder 5.2
+"Start Symbol"=<program>
+{Hex Digit}      = {Digit} + [abcdefABCDEF]
+{Oct Digit}      = [01234567]
+
+{Id Head}        = {Letter} + [_]
+{Id Tail}        = {Id Head} + {Digit}
+
+{String Ch}      = {Printable} - ["]
+{Char Ch}        = {Printable} - ['']
+                        
+     
+StringLiteral = '"' ( {String Ch} | '\' {Printable} )* '"'
+              
+
+CharLitreral=''( {String Ch} | '\' {Printable} )''
+            
+
+Number=(1|2|3|4|5|6|7|8|9|0)+
+      
+
+FNumber=(1|2|3|4|5|6|7|8|9|0)+ '.' (1|2|3|4|5|6|7|8|9|0)+
+      
+
+id              ={ID Head}{ID Tail}*|'int'|'double'|'boolean'|'char'
+    
+
+
+<program> ::= <Declerations> <program>
+          |
+
+<Declerations>  ::= <Function Declertion>
+          | <Function Prototype>
+          | <VarDecleration>
+          | <StructDecleration>
+          | <ClassDecleration>
+          | <ConstDecleration>    
+          
+!          | <Union Decl>
+!          | <Enum Decl>
+!          | <Typedef Decl>
+              
+! ===================================================================
+! Function  Declaration
+! ===================================================================
+
+<Function Prototype> ::= <Type> id '(' <Types>  ')' ';'
+                       | <Type> id '(' <Params> ')' ';'
+                       | <Type> id '(' ')' ';'
+
+<Function Declertion>  ::= <Type> id '(' <Params>  ')' '{'<MethodBody>'}'
+                         | <Type> id '(' ')' '{'<MethodBody>'}'
+
+
+<Params>     ::= <Type> id ',' <Params>
+               | <Type> id
+               
+<Types>      ::= <Type>  ',' <Types>
+               | <Type> 
+
+<Type>::=id        
+
+<ConstDecleration>::='const'<Type>id'='<Literal>';'
+                        
+<ClassDecleration>::='class'id'{'<BodyType>'}'';'
+                      
+<StructDecleration>::='struct'id'{'<BodyType>'}'';'
+
+<BodyType>::=<AccessType><Declerations><BodyType>|<Declerations><BodyType>|<>
+             
+<AccessType>::='public'':'|'protected'':'|'private'':'
+        
+<Literal>::=StringLiteral|CharLitreral|Number|FNumber|'true'|'false'
+         
+<opt Value>::='='<Literal>|<>
+             
+<VarDecleration>::=<Type>id<opt Value><LoopVarDec>';'
+
+<LoopVarDec>::=','id<opt Value><LoopVarDec>|<>             
+                 
+<MethodBody>::=<StatementSequence><MethodBody>|<>               
+             
+<LoopStatementSeq>::=<StatementSequence><LoopStatementSeq>|<>
+
+<Assignment>::=<LValue><RValue>
+
+<StatementSequence>::=<Assignment>';'|'if''('<Condition>')'<Factor of StatementSeq><ElseIF><Else>
+                        |'while''('<Condition>')'<Factor of StatementSeq>
+                        |'break'';'
+                        |'return'<Experssion>';'|'return'';'
+                        |'cin'<cin Param>';'
+                        |'cout'<Opt cout param>';'
+                        |';'
+                        |<VarDecleration>
+                        
+<ElseIF>::='elseif''('<Condition>')'<Factor of StatementSeq><ElseIF>|<>
+         
+<Else>::='else'<Factor of StatementSeq>|<>
+                    
+<Factor of StatementSeq>::=<StatementSequence>|'{'<LoopStatementSeq>'}'
+                         
+<cin Param>::='>>'<LValue><cin Param>|'>>'<LValue>
+           
+<cout param>::=id|StringLiteral|CharLitreral|Number|FNumber
+             
+<Opt cout param>::='<<'<cout param><Opt cout param>|'<<'<cout param>
+                    
+<RValue>::='='<Experssion>|'('<ActualParameters>')'|'++'|'--'
+
+<ActualParameters>::=<Experssion><LoopExperssion>|<>
+                   
+<LoopExperssion>::=','<Experssion><LoopExperssion>|<>
+                 
+<Condition>::=<CTerm><Loop CTerm>
+
+<Loop CTerm>::='||'<CTerm><Loop CTerm>|<>
+
+<CTerm>::=<CFact><Loop CFact>
+        
+<Loop CFact>::='&&'<CFact><Loop CFact>|<>
+             
+<CFact>::=<Experssion><Relop><Experssion>|<Experssion>
+        
+<Relop>::='=='|'!='|'>'|'>='|'<='|'<'
+
+<Experssion>::='-'<Term><LoopTerm>|<Term><LoopTerm>
+       
+<LoopTerm>::='+'<Term><LoopTerm>|'-'<Term><LoopTerm>|<>
+           
+<Term>::=<Factor><LoopFactor>
+       
+<LoopFactor>::='*'<Factor><LoopFactor>|'/'<Factor><LoopFactor>|'%'<Factor><LoopFactor>|<>
+
+<Factor>::=<LValue><Opt ActualParameters>|StringLiteral|CharLitreral|Number|FNumber|'('<Experssion>')'
+         
+<Opt ActualParameters>::='('<ActualParameters>')'|<>
+
+<LValue>::=id<LoopLValue>
+         
+<LoopLValue>::='.'id<LoopLValue>|'['<Experssion>']'<LoopLValue>|<>
+
+
